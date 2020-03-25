@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <title>Palavras Mais Ditas na Bíblia</title>
+    <style>
+        body {
+          background-color:rgba(255,255,204,0.5);
+          align-content: center;
+        }
+        #teste{
+            margin: auto;
+            align-content: center;
+        }
+        h1{
+            text-align: center;
+            align-content: center;
+        }
+        </style>
+</head>
+
+<body>
+    <h1>PALAVRONASSSSS</h1>
+    <div id="teste" style="width: 500px; height: 400px;">​
+        ​
+        <canvas id="myChart" width="400" height="400"></canvas>​​
+    </div>​​
+       
+    </div>
+    <script>
+        let URL = 'http://localhost:8080'
+        let num;
+        let name;
+        async function getNum() {
+            await fetch(`${URL}/getFinalNum`)
+                .then(resp => resp.json()
+                    .then(result => num = result))
+        }
+        async function getName() {
+            await fetch(`${URL}/getFinalName`)
+                .then(resp => resp.json()
+                    .then(result => name = result))
+        }
+        chart()
+        async function chart() {
+            await getNum();
+            await getName();
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: name,
+                    datasets: [{
+                        label: 'Palavras',
+                        data: num,
+                        backgroundColor: ['rgba(204,0,0,0.5)',
+                        'rgba(255,102,0,0.5)',
+                        'rgba(255,204,0,0.5)',
+                        'rgba(255,0,51,0.5)',
+                        'rgba(255,102,51,0.5)',
+                        'rgba(255,204,51,0.5)',
+                        'rgba(255,102,102,0.5)',
+                        'rgba(255,204,102,0.5)',
+                        'rgba(255,0,153,0.5)',
+                        'rgba(204,0,0,0.9)']
+                    }]
+                },
+               
+            });
+        }
+    </script>
+</body>
+
+</html>
